@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Student Portfolio | Creative Developer</title>
+    <meta name="description" content="A creative developer portfolio showing skills and projects." />
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind CSS v4 CDN -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @theme {
+        --font-sans: 'Outfit', sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+
+        --radius-sm: calc(var(--radius) - 4px);
+        --radius-md: calc(var(--radius) - 2px);
+        --radius-lg: var(--radius);
+        --radius-xl: calc(var(--radius) + 4px);
+        
+        --color-background: hsl(var(--background));
+        --color-foreground: hsl(var(--foreground));
+        
+        --color-card: hsl(var(--card));
+        --color-card-foreground: hsl(var(--card-foreground));
+        
+        --color-popover: hsl(var(--popover));
+        --color-popover-foreground: hsl(var(--popover-foreground));
+        
+        --color-primary: hsl(var(--primary));
+        --color-primary-foreground: hsl(var(--primary-foreground));
+        
+        --color-secondary: hsl(var(--secondary));
+        --color-secondary-foreground: hsl(var(--secondary-foreground));
+        
+        --color-muted: hsl(var(--muted));
+        --color-muted-foreground: hsl(var(--muted-foreground));
+        
+        --color-accent: hsl(var(--accent));
+        --color-accent-foreground: hsl(var(--accent-foreground));
+        
+        --color-destructive: hsl(var(--destructive));
+        --color-destructive-foreground: hsl(var(--destructive-foreground));
+        
+        --color-border: hsl(var(--border));
+        --color-input: hsl(var(--input));
+        --color-ring: hsl(var(--ring));
+      }
+    </style>
+
+    <style>
+      /* Custom Font Imports */
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;500;700;900&display=swap');
+
+      :root {
+        /* Dark Theme by default */
+        --background: 222 47% 11%;
+        --foreground: 210 40% 98%;
+
+        --card: 222 47% 11%;
+        --card-foreground: 210 40% 98%;
+
+        --popover: 222 47% 11%;
+        --popover-foreground: 210 40% 98%;
+
+        --primary: 262 83% 58%;
+        --primary-foreground: 210 40% 98%;
+
+        --secondary: 217 33% 17%;
+        --secondary-foreground: 210 40% 98%;
+
+        --muted: 217 33% 17%;
+        --muted-foreground: 215 20% 65%;
+
+        --accent: 190 90% 50%;
+        --accent-foreground: 222 47% 11%;
+
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 210 40% 98%;
+
+        --border: 217 33% 17%;
+        --input: 217 33% 17%;
+        --ring: 262 83% 58%;
+
+        --radius: 0.5rem;
+      }
+
+      /* Base Styles */
+      * {
+        border-color: hsl(var(--border));
+      }
+      body {
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        font-family: 'Outfit', sans-serif;
+      }
+
+      /* Custom Utilities replaced with CSS for CDN compatibility */
+      .glass {
+        background-color: hsl(var(--background) / 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .glass-card {
+        background-color: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      }
+
+      .text-glow {
+        text-shadow: 0 0 20px hsla(262, 83%, 58%, 0.5); /* Hardcoded primary for CDN simplicity or use calc if complex */
+      }
+    </style>
+  </head>
+  <body class="antialiased selection:bg-primary/30 selection:text-white">
+    
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6">
+      <div class="container mx-auto px-6 flex items-center justify-between">
+        <a href="#home" class="text-2xl font-bold font-sans tracking-tighter text-white">
+          Dev<span class="text-primary">.</span>Portfolio
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#home" class="text-sm font-medium text-gray-300 hover:text-primary transition-colors uppercase tracking-widest">Home</a>
+          <a href="#about" class="text-sm font-medium text-gray-300 hover:text-primary transition-colors uppercase tracking-widest">About</a>
+          <a href="#skills" class="text-sm font-medium text-gray-300 hover:text-primary transition-colors uppercase tracking-widest">Skills</a>
+          <a href="#projects" class="text-sm font-medium text-gray-300 hover:text-primary transition-colors uppercase tracking-widest">Projects</a>
+          <a href="#contact" class="text-sm font-medium text-gray-300 hover:text-primary transition-colors uppercase tracking-widest">Contact</a>
+          <a href="#contact" class="bg-primary hover:bg-primary/90 text-white rounded-full px-6 py-2.5 text-sm font-medium transition-colors">
+            Hire Me
+          </a>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden text-white">
+          <i data-lucide="menu" class="lucide-menu"></i>
+          <i data-lucide="x" class="lucide-x hidden"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div id="mobile-menu" class="hidden md:hidden bg-background border-b border-white/10 absolute w-full top-full left-0">
+        <div class="flex flex-col items-center py-8 gap-6">
+          <a href="#home" class="mobile-link text-lg font-medium text-gray-300 hover:text-primary transition-colors">Home</a>
+          <a href="#about" class="mobile-link text-lg font-medium text-gray-300 hover:text-primary transition-colors">About</a>
+          <a href="#skills" class="mobile-link text-lg font-medium text-gray-300 hover:text-primary transition-colors">Skills</a>
+          <a href="#projects" class="mobile-link text-lg font-medium text-gray-300 hover:text-primary transition-colors">Projects</a>
+          <a href="#contact" class="mobile-link text-lg font-medium text-gray-300 hover:text-primary transition-colors">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      <!-- Background Image -->
+      <div class="absolute inset-0 z-0">
+        <!-- REPLACE THIS WITH YOUR IMAGE PATH -->
+        <img 
+          src="assets/hero-bg.png" 
+          alt="Abstract Background" 
+          class="w-full h-full object-cover opacity-40"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-background/10 via-background/50 to-background"></div>
+      </div>
+
+      <div class="container mx-auto px-6 relative z-10 text-center">
+        <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out">
+          <span class="text-accent font-mono text-sm tracking-widest uppercase mb-4 block">
+            Welcome to my portfolio
+          </span>
+          <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 tracking-tight">
+            Creative <br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+              Developer
+            </span>
+          </h1>
+          <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+            I build accessible, pixel-perfect, performant, and engaging digital experiences for the web.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+            <a href="#projects" class="bg-primary hover:bg-primary/90 text-white rounded-full px-8 py-3 text-lg font-medium transition-colors">
+              View Projects
+            </a>
+            <a href="#contact" class="border border-white/20 text-white hover:bg-white/10 rounded-full px-8 py-3 text-lg font-medium transition-colors">
+              Contact Me
+            </a>
+          </div>
+
+          <div class="flex items-center justify-center gap-6 mb-12">
+            <a href="https://github.com/jonny14-bro" class="text-gray-400 hover:text-white hover:scale-110 transition-all p-2">
+              <i data-lucide="github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/jatin-kumar-senapati-48b7b636a/" class="text-gray-400 hover:text-white hover:scale-110 transition-all p-2">
+              <i data-lucide="linkedin"></i>
+            </a>
+            <a href="https://www.instagram.com/_i_am_jatin.14_/?hl=en" class="text-gray-400 hover:text-white hover:scale-110 transition-all p-2">
+              <i data-lucide="instagram"></i>
+            </a>
+          </div>
+        </div>
+
+
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-background relative overflow-hidden">
+      <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+          <div class="reveal opacity-0 -translate-x-8 transition-all duration-1000 ease-out relative">
+            <div class="relative z-10 glass-card p-8 rounded-2xl border-l-4 border-primary">
+              <div class="flex flex-col sm:flex-row gap-6 items-start mb-6">
+                <img 
+                  src="assets/profile-pic.png" 
+                  alt="Profile Photo" 
+                  class="w-48 h-48 rounded-full object-cover border-5 border-primary/50 shadow-lg shrink-0"
+                />
+                <div>
+                  <h3 class="text-2xl font-bold text-white mb-2">Who I Am</h3>
+                  <p class="text-gray-400 leading-relaxed">
+                    Hi, I’m Jatin Kumar Senapati, a Computer Science & Engineering student specializing in Artificial Intelligence and Machine Learning at GITA Autonomous,BBSR , with a strong interest in cybersecurity, OSINT research, and web development.
+                  </p>
+                </div>
+              </div>
+              <p class="text-gray-400 leading-relaxed mb-6">
+                I enjoy building practical, real-world solutions—whether it’s designing modern, responsive websites or developing security-focused tools that analyze digital footprints and exposed data. My work focuses on clean design, efficient code, and security-aware development. 
+              </p>
+              <p class="text-gray-400 leading-relaxed mb-6">
+                I’ve worked on projects involving OSINT automation, secure data analysis, image/video metadata investigation, and custom web platforms, and I’m constantly learning new technologies to sharpen both my technical and problem-solving skills.
+              </p>
+              <p class="text-gray-400 leading-relaxed">
+                Creative Developer | AI & Cybersecurity Enthusiast
+Now i am in progress to learn , design and build secure, modern web solutions with a focus on AI, OSINT, and real-world problem solving.
+              </p>
+            </div>
+            <!-- Decorative elements -->
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-accent/20 rounded-full blur-3xl"></div>
+          </div>
+
+          <div class="reveal opacity-0 translate-x-8 transition-all duration-1000 ease-out delay-200">
+             <h2 class="text-4xl md:text-5xl font-bold text-white mb-8">
+              Transforming <span class="text-primary">ideas</span> into <br />
+              <span class="text-accent">digital reality</span>
+            </h2>
+            <div class="grid grid-cols-2 gap-6">
+              <div class="p-6 rounded-xl bg-white/5 border border-white/10 hover:border-primary/30 transition-colors">
+                <h4 class="text-3xl font-bold text-white mb-2">Hands-on work & projects</h4>
+                <p class="text-gray-400 text-sm">Years of Experience</p>
+              </div>
+              <div class="p-6 rounded-xl bg-white/5 border border-white/10 hover:border-primary/30 transition-colors">
+                <h4 class="text-3xl font-bold text-white mb-2">3</h4>
+                <p class="text-gray-400 text-sm">Projects Completed</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 bg-background/50">
+      <div class="container mx-auto px-6">
+        <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out text-center mb-16">
+          <h2 class="text-4xl font-bold text-white mb-4">My Skills</h2>
+          <p class="text-gray-400 max-w-xl mx-auto">
+            A constant learner, I'm always exploring new technologies to add to my toolkit.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <!-- Skill Items -->
+          <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 glass-card p-6 rounded-xl flex flex-col items-center justify-center gap-4 group hover:-translate-y-1 transition-transform cursor-default">
+            <div class="p-4 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors text-orange-500">
+              <i data-lucide="layout" size="32"></i>
+            </div>
+            <span class="font-medium text-gray-200">HTML5 & CSS3</span>
+          </div>
+          
+
+          
+          <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-200 glass-card p-6 rounded-xl flex flex-col items-center justify-center gap-4 group hover:-translate-y-1 transition-transform cursor-default">
+            <div class="p-4 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors text-yellow-400">
+              <i data-lucide="code-2" size="32"></i>
+            </div>
+            <span class="font-medium text-gray-200">JavaScript</span>
+          </div>
+
+          <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-300 glass-card p-6 rounded-xl flex flex-col items-center justify-center gap-4 group hover:-translate-y-1 transition-transform cursor-default">
+            <div class="p-4 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors text-blue-400">
+              <i data-lucide="globe" size="32"></i>
+            </div>
+            <span class="font-medium text-gray-200">OSINT</span>
+          </div>
+
+          <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-400 glass-card p-6 rounded-xl flex flex-col items-center justify-center gap-4 group hover:-translate-y-1 transition-transform cursor-default">
+            <div class="p-4 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors text-cyan-400">
+              <i data-lucide="palette" size="32"></i>
+            </div>
+            <span class="font-medium text-gray-200">Tailwind</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 bg-background">
+      <div class="container mx-auto px-6">
+        <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out mb-16">
+          <h2 class="text-4xl font-bold text-white mb-4">Featured Projects</h2>
+          <p class="text-gray-400">Some of the best work I've done so far.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Project 1 -->
+          <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 group rounded-2xl overflow-hidden bg-card border border-white/10 hover:border-primary/50 transition-all duration-300">
+            <div class="relative h-48 overflow-hidden">
+              <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10"></div>
+              <img 
+                src="https://miro.medium.com/v2/resize:fit:1100/format:webp/0*Ys5-ON-ThuglXG8T" 
+                alt="OSINT Tool - prototype" 
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+            </div>
+            
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
+                OSINT Tool - prototype
+              </h3>
+              <p class="text-gray-400 text-sm mb-6 line-clamp-2">
+                OSINT (Open-Source Intelligence) tools are software and platforms used to extract and analyze publicly available information 
+              </p>
+              
+              <div class="flex items-center gap-4">
+                <a href="https://github.com/jonny14-bro/OSINT-prototype.git" class="flex-1 flex items-center justify-center gap-2 py-2 rounded-md border border-white/10 text-white text-sm hover:bg-white/5 transition-colors">
+                  <i data-lucide="github" class="w-4 h-4"></i> Code
+                </a>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Project 2 -->
+          <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 group rounded-2xl overflow-hidden bg-card border border-white/10 hover:border-primary/50 transition-all duration-300">
+            <div class="relative h-48 overflow-hidden">
+              <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10"></div>
+              <img 
+                src="https://uk.store.tapo.com/cdn/shop/articles/How_to_prevent_WiFi_jamming_c9265114-afb4-495d-a217-72626c80dc83.jpg?v=1756910680&width=1400" 
+                alt="OSINT Tool" 
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+            </div>
+            
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
+                WIFI JAMMER
+              </h3>
+              <p class="text-gray-400 text-sm mb-6 line-clamp-2">
+                A WiFi jammer is an illegal device that intentionally transmits powerful radio frequency signals to disrupt wireless communication, making it impossible for Wi-Fi enabled devices to connect to a network.
+              </p>
+              
+              <div class="flex items-center gap-4">
+                <a href="https://github.com/jonny14-bro/Wi-Fi-Jammer" class="flex-1 flex items-center justify-center gap-2 py-2 rounded-md border border-white/10 text-white text-sm hover:bg-white/5 transition-colors">
+                  <i data-lucide="github" class="w-4 h-4"></i> Code
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-background/50 relative overflow-hidden">
+      <div class="container mx-auto px-6">
+        <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out text-center mb-16">
+          <h2 class="text-4xl font-bold text-white">Let's Work Together</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+          <!-- Contact Info -->
+          
+          <div class="reveal opacity-0 -translate-x-8 transition-all duration-1000 ease-out space-y-8">
+            <p class="text-gray-400 text-lg">
+              Have a project in mind or just want to say hi? Feel free to send me a message.
+            </p>
+            <div class="flex items-center gap-4">
+              <div class="p-3 rounded-full bg-primary/10 text-primary">
+                <i data-lucide="mail" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-white">Email</h4>
+                <p class="text-gray-400">jatinsenapati2006@gmail.com</p>
+              </div>
+            </div>
+          </div>
+          <div class="reveal opacity-0 -translate-x-8 transition-all duration-1000 ease-out space-y-8">
+            <p class="text-gray-400 text-lg">
+              Any creative thinking can be turned into an innovation.
+            </p>
+            <div class="flex items-center gap-4">
+              <div class="p-3 rounded-full bg-primary/10 text-primary">
+                <i data-lucide="mail" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-white">Contact</h4>
+                <p class="text-gray-400">For any queries contact on the email !</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scripts -->
+    <script>
+      // Initialize Lucide Icons
+      lucide.createIcons();
+
+      // Navbar Scroll Effect
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('bg-background/80', 'backdrop-blur-md', 'border-b', 'border-white/10', 'py-4');
+          navbar.classList.remove('py-6');
+        } else {
+          navbar.classList.remove('bg-background/80', 'backdrop-blur-md', 'border-b', 'border-white/10', 'py-4');
+          navbar.classList.add('py-6');
+        }
+      });
+
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+
+      function toggleMenu() {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        const menuIcon = mobileMenuBtn.querySelector('.lucide-menu');
+        const closeIcon = mobileMenuBtn.querySelector('.lucide-x');
+
+        if (isHidden) {
+          mobileMenu.classList.remove('hidden');
+          if (menuIcon) menuIcon.classList.add('hidden');
+          if (closeIcon) closeIcon.classList.remove('hidden');
+        } else {
+          mobileMenu.classList.add('hidden');
+          if (menuIcon) menuIcon.classList.remove('hidden');
+          if (closeIcon) closeIcon.classList.add('hidden');
+        }
+      }
+
+      mobileMenuBtn.addEventListener('click', toggleMenu);
+
+      // Close mobile menu when clicking a link
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          const menuIcon = mobileMenuBtn.querySelector('.lucide-menu');
+          const closeIcon = mobileMenuBtn.querySelector('.lucide-x');
+          if (menuIcon) menuIcon.classList.remove('hidden');
+          if (closeIcon) closeIcon.classList.add('hidden');
+        });
+      });
+
+      // Scroll Reveal Animation
+      const revealElements = document.querySelectorAll('.reveal');
+      const revealCallback = (entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('opacity-0', 'translate-y-8', '-translate-x-8', 'translate-x-8');
+            observer.unobserve(entry.target);
+          }
+        });
+      };
+      const revealObserver = new IntersectionObserver(revealCallback, {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+      });
+      revealElements.forEach(el => revealObserver.observe(el));
+
+      // Initial Reveal
+      window.addEventListener('load', () => {
+        const heroContent = document.querySelector('#home .reveal');
+        if (heroContent) {
+          heroContent.classList.remove('opacity-0', 'translate-y-8');
+        }
+      });
+
+      // Contact Form Demo
+      const contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = document.getElementById('name').value;
+          const submitBtn = contactForm.querySelector('button[type="submit"]');
+          const originalText = submitBtn.textContent;
+          
+          submitBtn.textContent = 'Sending...';
+          submitBtn.disabled = true;
+
+          setTimeout(() => {
+            alert(`Thanks ${name}! Message sent successfully (Demo only).`);
+            contactForm.reset();
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }, 1500);
+        });
+      }
+    </script>
+  </body>
+</html>
