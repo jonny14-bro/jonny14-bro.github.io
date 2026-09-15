@@ -1,553 +1,617 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080b16" />
+  <meta name="description" content="Jatin Kumar Senapati — AI/ML, Cybersecurity, OSINT and Intelligent Systems portfolio." />
+  <meta name="author" content="Jatin Kumar Senapati" />
+  <title>Jatin Kumar Senapati | AI/ML • Cybersecurity • Intelligent Systems</title>
 
-    <title>Student Portfolio | Creative Developer</title>
-    <meta name="description" content="A creative developer portfolio showing skills and projects." />
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CSS v4 CDN -->
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <style>
+    :root {
+      --bg: #080b16;
+      --bg-soft: #0d1220;
+      --card: rgba(255,255,255,.045);
+      --border: rgba(255,255,255,.10);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #8b5cf6;
+      --accent: #22d3ee;
+      --green: #34d399;
+    }
 
-    <style type="text/tailwindcss">
-      @theme {
-        --font-sans: 'Outfit', sans-serif;
-        --font-mono: 'JetBrains Mono', monospace;
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(139,92,246,.14), transparent 28rem),
+        radial-gradient(circle at 85% 25%, rgba(34,211,238,.10), transparent 26rem),
+        var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      overflow-x: hidden;
+    }
 
-        --radius-sm: calc(var(--radius) - 4px);
-        --radius-md: calc(var(--radius) - 2px);
-        --radius-lg: var(--radius);
-        --radius-xl: calc(var(--radius) + 4px);
-        
-        --color-background: hsl(var(--background));
-        --color-foreground: hsl(var(--foreground));
-        
-        --color-card: hsl(var(--card));
-        --color-card-foreground: hsl(var(--card-foreground));
-        
-        --color-popover: hsl(var(--popover));
-        --color-popover-foreground: hsl(var(--popover-foreground));
-        
-        --color-primary: hsl(var(--primary));
-        --color-primary-foreground: hsl(var(--primary-foreground));
-        
-        --color-secondary: hsl(var(--secondary));
-        --color-secondary-foreground: hsl(var(--secondary-foreground));
-        
-        --color-muted: hsl(var(--muted));
-        --color-muted-foreground: hsl(var(--muted-foreground));
-        
-        --color-accent: hsl(var(--accent));
-        --color-accent-foreground: hsl(var(--accent-foreground));
-        
-        --color-destructive: hsl(var(--destructive));
-        --color-destructive-foreground: hsl(var(--destructive-foreground));
-        
-        --color-border: hsl(var(--border));
-        --color-input: hsl(var(--input));
-        --color-ring: hsl(var(--ring));
-      }
-    </style>
+    ::selection { background: rgba(139,92,246,.45); color: white; }
 
-    <style>
-      /* Custom Font Imports */
-      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;500;700;900&display=swap');
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .glass {
+      background: var(--card);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .glow {
+      box-shadow: 0 0 60px rgba(139,92,246,.12);
+    }
+    .gradient-text {
+      background: linear-gradient(90deg, #a78bfa, #22d3ee);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+      -webkit-mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+    .project-card {
+      transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(139,92,246,.5);
+      box-shadow: 0 22px 60px rgba(0,0,0,.25);
+    }
+    .skill {
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .skill:hover {
+      transform: translateY(-3px);
+      border-color: rgba(34,211,238,.4);
+      background: rgba(255,255,255,.07);
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .75s ease, transform .75s ease;
+    }
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .terminal-line::before {
+      content: ">";
+      color: var(--accent);
+      margin-right: .65rem;
+    }
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 14px rgba(52,211,153,.75);
+      display: inline-block;
+    }
+    .nav-scrolled {
+      background: rgba(8,11,22,.82);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+  </style>
+</head>
 
-      :root {
-        /* Dark Theme by default */
-        --background: 222 47% 11%;
-        --foreground: 210 40% 98%;
+<body>
+  <!-- Background -->
+  <div class="fixed inset-0 pointer-events-none grid-bg z-0"></div>
 
-        --card: 222 47% 11%;
-        --card-foreground: 210 40% 98%;
+  <!-- NAVBAR -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <nav class="max-w-7xl mx-auto px-5 lg:px-8 h-20 flex items-center justify-between">
+      <a href="#home" class="font-black text-xl tracking-tight">
+        Jatin<span class="gradient-text">.</span>
+      </a>
 
-        --popover: 222 47% 11%;
-        --popover-foreground: 210 40% 98%;
-
-        --primary: 262 83% 58%;
-        --primary-foreground: 210 40% 98%;
-
-        --secondary: 217 33% 17%;
-        --secondary-foreground: 210 40% 98%;
-
-        --muted: 217 33% 17%;
-        --muted-foreground: 215 20% 65%;
-
-        --accent: 190 90% 50%;
-        --accent-foreground: 222 47% 11%;
-
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 210 40% 98%;
-
-        --border: 217 33% 17%;
-        --input: 217 33% 17%;
-        --ring: 262 83% 58%;
-
-        --radius: 0.5rem;
-      }
-
-      /* Base Styles */
-      * {
-        border-color: hsl(var(--border));
-      }
-      body {
-        background-color: hsl(var(--background));
-        color: hsl(var(--foreground));
-        font-family: 'Outfit', sans-serif;
-      }
-
-      /* Custom Utilities replaced with CSS for CDN compatibility */
-      .glass {
-        background-color: hsl(var(--background) / 0.6);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      }
-      
-      .glass-card {
-        background-color: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-      }
-
-      .text-glow {
-        text-shadow: 0 0 20px hsla(262, 83%, 58%, 0.5); /* Hardcoded primary for CDN simplicity or use calc if complex */
-      }
-    </style>
-  </head>
-  <body class="antialiased selection:bg-primary/30 selection:text-white">
-    
-    <!-- Navbar -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6">
-      <div class="container mx-auto px-6 flex items-center justify-between">
-        <a href="#home" class="text-2xl font-bold font-sans tracking-tighter text-white">
-          Dev<span class="text-primary">.</span>Portfolio
+      <div class="hidden md:flex items-center gap-7">
+        <a href="#about" class="text-sm text-slate-300 hover:text-white transition">About</a>
+        <a href="#skills" class="text-sm text-slate-300 hover:text-white transition">Skills</a>
+        <a href="#projects" class="text-sm text-slate-300 hover:text-white transition">Projects</a>
+        <a href="#focus" class="text-sm text-slate-300 hover:text-white transition">Current Focus</a>
+        <a href="#contact" class="text-sm text-slate-300 hover:text-white transition">Contact</a>
+        <a href="https://github.com/jonny14-bro"
+           target="_blank" rel="noopener"
+           class="rounded-full px-5 py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold transition">
+          GitHub
         </a>
-
-        <!-- Desktop Nav -->
-        <div class="hidden md:flex items-center gap-8">
-          <a href="#home" class="text-sm font-medium text-gray-300 hover:text-primary transition-colors uppercase tracking-widest">Home</a>
-          <a href="#about" class="text-sm font-medium text-gray-300 hover:text-primary transition-colors uppercase tracking-widest">About</a>
-          <a href="#skills" class="text-sm font-medium text-gray-300 hover:text-primary transition-colors uppercase tracking-widest">Skills</a>
-          <a href="#projects" class="text-sm font-medium text-gray-300 hover:text-primary transition-colors uppercase tracking-widest">Projects</a>
-          <a href="#contact" class="text-sm font-medium text-gray-300 hover:text-primary transition-colors uppercase tracking-widest">Contact</a>
-          <a href="#contact" class="bg-primary hover:bg-primary/90 text-white rounded-full px-6 py-2.5 text-sm font-medium transition-colors">
-            Hire Me
-          </a>
-        </div>
-
-        <!-- Mobile Toggle -->
-        <button id="mobile-menu-btn" class="md:hidden text-white">
-          <i data-lucide="menu" class="lucide-menu"></i>
-          <i data-lucide="x" class="lucide-x hidden"></i>
-        </button>
       </div>
 
-      <!-- Mobile Nav -->
-      <div id="mobile-menu" class="hidden md:hidden bg-background border-b border-white/10 absolute w-full top-full left-0">
-        <div class="flex flex-col items-center py-8 gap-6">
-          <a href="#home" class="mobile-link text-lg font-medium text-gray-300 hover:text-primary transition-colors">Home</a>
-          <a href="#about" class="mobile-link text-lg font-medium text-gray-300 hover:text-primary transition-colors">About</a>
-          <a href="#skills" class="mobile-link text-lg font-medium text-gray-300 hover:text-primary transition-colors">Skills</a>
-          <a href="#projects" class="mobile-link text-lg font-medium text-gray-300 hover:text-primary transition-colors">Projects</a>
-          <a href="#contact" class="mobile-link text-lg font-medium text-gray-300 hover:text-primary transition-colors">Contact</a>
-        </div>
-      </div>
+      <button id="menuBtn" class="md:hidden text-slate-200" aria-label="Open menu">
+        <i data-lucide="menu"></i>
+      </button>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <!-- Background Image -->
-      <div class="absolute inset-0 z-0">
-        <!-- REPLACE THIS WITH YOUR IMAGE PATH -->
-        <img 
-          src="assets/hero-bg.png" 
-          alt="Abstract Background" 
-          class="w-full h-full object-cover opacity-40"
-        />
-        <div class="absolute inset-0 bg-gradient-to-b from-background/10 via-background/50 to-background"></div>
+    <div id="mobileMenu" class="hidden md:hidden border-t border-white/10 bg-[#080b16]/95 backdrop-blur-xl">
+      <div class="px-6 py-6 flex flex-col gap-5">
+        <a class="mobile-link text-slate-200" href="#about">About</a>
+        <a class="mobile-link text-slate-200" href="#skills">Skills</a>
+        <a class="mobile-link text-slate-200" href="#projects">Projects</a>
+        <a class="mobile-link text-slate-200" href="#focus">Current Focus</a>
+        <a class="mobile-link text-slate-200" href="#contact">Contact</a>
       </div>
+    </div>
+  </header>
 
-      <div class="container mx-auto px-6 relative z-10 text-center">
-        <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out">
-          <span class="text-accent font-mono text-sm tracking-widest uppercase mb-4 block">
-            Welcome to my portfolio
-          </span>
-          <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 tracking-tight">
-            Creative <br />
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-              Developer
-            </span>
-          </h1>
-          <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-            I build accessible, pixel-perfect, performant, and engaging digital experiences for the web.
+  <main class="relative z-10">
+
+    <!-- HERO -->
+    <section id="home" class="min-h-screen flex items-center pt-24">
+      <div class="max-w-7xl mx-auto px-5 lg:px-8 w-full">
+        <div class="grid lg:grid-cols-[1.15fr_.85fr] gap-14 items-center">
+
+          <div class="reveal">
+            <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-2 mb-7">
+              <span class="status-dot"></span>
+              <span class="mono text-xs text-slate-300">BUILDING • LEARNING • ITERATING</span>
+            </div>
+
+            <p class="mono text-sm text-cyan-300 mb-4">AI/ML • CYBERSECURITY • INTELLIGENT SYSTEMS</p>
+
+            <h1 class="text-5xl sm:text-6xl lg:text-8xl font-black tracking-tight leading-[.95] mb-7">
+              Jatin Kumar<br />
+              <span class="gradient-text">Senapati.</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-slate-400 max-w-2xl leading-relaxed mb-9">
+              Computer Science & Engineering student building practical systems around
+              <span class="text-slate-200">AI/ML, OSINT, cybersecurity, automation and modern web development.</span>
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="#projects" class="inline-flex justify-center items-center gap-2 px-7 py-3.5 rounded-xl bg-violet-600 hover:bg-violet-500 font-semibold transition">
+                Explore Projects <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+              </a>
+              <a href="https://github.com/jonny14-bro" target="_blank" rel="noopener"
+                 class="inline-flex justify-center items-center gap-2 px-7 py-3.5 rounded-xl border border-white/15 hover:bg-white/5 font-semibold transition">
+                <i data-lucide="github" class="w-4 h-4"></i> GitHub
+              </a>
+            </div>
+
+            <div class="flex items-center gap-5 mt-8 text-slate-500">
+              <a href="https://www.linkedin.com/in/jatin-kumar-senapati-48b7b636a/" target="_blank" rel="noopener" class="hover:text-white transition" aria-label="LinkedIn">
+                <i data-lucide="linkedin"></i>
+              </a>
+              <a href="mailto:jatinsenapati2006@gmail.com" class="hover:text-white transition" aria-label="Email">
+                <i data-lucide="mail"></i>
+              </a>
+              <a href="https://www.instagram.com/_i_am_jatin.14_/" target="_blank" rel="noopener" class="hover:text-white transition" aria-label="Instagram">
+                <i data-lucide="instagram"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Terminal -->
+          <div class="reveal">
+            <div class="glass glow rounded-2xl overflow-hidden border-white/10">
+              <div class="flex items-center gap-2 px-5 py-4 border-b border-white/10 bg-white/[.025]">
+                <span class="w-3 h-3 rounded-full bg-red-400/80"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-400/80"></span>
+                <span class="w-3 h-3 rounded-full bg-green-400/80"></span>
+                <span class="mono text-xs text-slate-500 ml-3">jatin@portfolio ~</span>
+              </div>
+              <div class="p-6 sm:p-8 mono text-sm leading-8">
+                <p class="terminal-line text-slate-300">whoami</p>
+                <p class="text-violet-300 mb-4">Jatin Kumar Senapati</p>
+
+                <p class="terminal-line text-slate-300">focus --current</p>
+                <p class="text-cyan-300">AI/ML + Cybersecurity + OSINT</p>
+
+                <p class="terminal-line text-slate-300 mt-3">stack --core</p>
+                <p class="text-slate-400">Python · C · FastAPI · Flask · PyTorch</p>
+                <p class="text-slate-400">YOLOv8 · OpenCV · FAISS · Git</p>
+
+                <p class="terminal-line text-slate-300 mt-3">status</p>
+                <p class="text-emerald-300">shipping systems & improving every iteration_</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-28">
+      <div class="max-w-7xl mx-auto px-5 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-14 items-center">
+          <div class="reveal">
+            <p class="mono text-cyan-300 text-sm mb-3">01 / ABOUT</p>
+            <h2 class="text-4xl sm:text-5xl font-bold mb-7">Engineering ideas into <span class="gradient-text">working systems.</span></h2>
+
+            <div class="space-y-5 text-slate-400 leading-relaxed">
+              <p>
+                I’m Jatin Kumar Senapati, a Computer Science & Engineering student specializing in
+                Artificial Intelligence and Machine Learning at GITA Autonomous, Bhubaneswar.
+              </p>
+              <p>
+                My projects sit at the intersection of AI, cybersecurity and software engineering.
+                I enjoy turning research-oriented ideas into usable prototypes — from multimodal OSINT
+                analysis to local LLM orchestration and intelligent decision systems.
+              </p>
+              <p>
+                I care about modular architecture, explainability, automation, validation and building
+                software that can be inspected, tested and improved rather than remaining only a concept.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-5 reveal">
+            <div class="glass rounded-2xl p-6">
+              <i data-lucide="brain-circuit" class="w-8 h-8 text-violet-400 mb-5"></i>
+              <h3 class="font-bold text-lg mb-2">AI / ML</h3>
+              <p class="text-sm text-slate-400">Deep learning, computer vision, semantic search and intelligent workflows.</p>
+            </div>
+            <div class="glass rounded-2xl p-6">
+              <i data-lucide="shield-check" class="w-8 h-8 text-cyan-400 mb-5"></i>
+              <h3 class="font-bold text-lg mb-2">Cybersecurity</h3>
+              <p class="text-sm text-slate-400">Security-aware development, digital footprints, evidence and analysis.</p>
+            </div>
+            <div class="glass rounded-2xl p-6">
+              <i data-lucide="network" class="w-8 h-8 text-emerald-400 mb-5"></i>
+              <h3 class="font-bold text-lg mb-2">Systems</h3>
+              <p class="text-sm text-slate-400">Modular architectures, APIs, orchestration, validation and persistence.</p>
+            </div>
+            <div class="glass rounded-2xl p-6">
+              <i data-lucide="terminal" class="w-8 h-8 text-amber-300 mb-5"></i>
+              <h3 class="font-bold text-lg mb-2">Automation</h3>
+              <p class="text-sm text-slate-400">CLI tools, repeatable workflows and practical developer utilities.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="py-28 bg-white/[.018] border-y border-white/5">
+      <div class="max-w-7xl mx-auto px-5 lg:px-8">
+        <div class="reveal mb-14">
+          <p class="mono text-cyan-300 text-sm mb-3">02 / TOOLKIT</p>
+          <h2 class="text-4xl sm:text-5xl font-bold">Technologies I work with</h2>
+          <p class="text-slate-400 mt-4 max-w-2xl">A practical stack built around Python, AI/ML, security analysis and modern web tooling.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="skill glass rounded-xl p-5">
+            <i data-lucide="code-2" class="w-7 h-7 text-yellow-300 mb-4"></i>
+            <h3 class="font-semibold mb-2">Languages</h3>
+            <p class="text-sm text-slate-400">Python · C · Java · HTML · CSS · JavaScript</p>
+          </div>
+          <div class="skill glass rounded-xl p-5">
+            <i data-lucide="cpu" class="w-7 h-7 text-violet-400 mb-4"></i>
+            <h3 class="font-semibold mb-2">AI / ML</h3>
+            <p class="text-sm text-slate-400">PyTorch · TensorFlow · Scikit-learn · NumPy · Pandas · SciPy</p>
+          </div>
+          <div class="skill glass rounded-xl p-5">
+            <i data-lucide="scan-eye" class="w-7 h-7 text-cyan-300 mb-4"></i>
+            <h3 class="font-semibold mb-2">Vision & Search</h3>
+            <p class="text-sm text-slate-400">YOLOv8 · OpenCV · FAISS · Sentence-Transformers</p>
+          </div>
+          <div class="skill glass rounded-xl p-5">
+            <i data-lucide="server" class="w-7 h-7 text-emerald-300 mb-4"></i>
+            <h3 class="font-semibold mb-2">Backend & Tools</h3>
+            <p class="text-sm text-slate-400">FastAPI · Flask · Git · JSON · CLI · Data Persistence</p>
+          </div>
+        </div>
+
+        <div class="mt-8 flex flex-wrap gap-2 reveal">
+          <span class="mono text-xs px-3 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300">LLM Orchestration</span>
+          <span class="mono text-xs px-3 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300">Computer Vision</span>
+          <span class="mono text-xs px-3 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300">OSINT</span>
+          <span class="mono text-xs px-3 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300">Semantic Search</span>
+          <span class="mono text-xs px-3 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300">API Development</span>
+          <span class="mono text-xs px-3 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300">Security Analysis</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="py-28">
+      <div class="max-w-7xl mx-auto px-5 lg:px-8">
+        <div class="reveal mb-14">
+          <p class="mono text-cyan-300 text-sm mb-3">03 / SELECTED WORK</p>
+          <h2 class="text-4xl sm:text-5xl font-bold">Projects that show how I build.</h2>
+          <p class="text-slate-400 mt-4 max-w-2xl">A selection of AI, OSINT, cybersecurity and intelligent-system projects from my GitHub.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+          <!-- ACIE -->
+          <article class="project-card glass rounded-2xl overflow-hidden reveal">
+            <div class="h-2 bg-gradient-to-r from-violet-500 to-cyan-400"></div>
+            <div class="p-7">
+              <div class="flex items-center justify-between mb-5">
+                <div class="p-3 rounded-xl bg-violet-500/10 text-violet-300"><i data-lucide="bot"></i></div>
+                <span class="mono text-[10px] uppercase tracking-wider text-violet-300">Flagship</span>
+              </div>
+              <h3 class="text-2xl font-bold mb-3">ACIE v2.0</h3>
+              <p class="text-slate-400 text-sm leading-6 mb-5">
+                Adaptive Coding Intelligence Engine — a modular local-LLM coding system with task planning,
+                step execution, memory, validation, integration and self-correction.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="tag">Python</span><span class="tag">GGUF / LLM</span><span class="tag">FAISS</span><span class="tag">Validation</span>
+              </div>
+              <a href="https://github.com/jonny14-bro/ACIE_v2.0" target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-cyan-300 transition">
+                View repository <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- NXTINT -->
+          <article class="project-card glass rounded-2xl overflow-hidden reveal">
+            <div class="h-2 bg-gradient-to-r from-cyan-400 to-emerald-400"></div>
+            <div class="p-7">
+              <div class="flex items-center justify-between mb-5">
+                <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-300"><i data-lucide="radar"></i></div>
+                <span class="mono text-[10px] uppercase tracking-wider text-cyan-300">OSINT</span>
+              </div>
+              <h3 class="text-2xl font-bold mb-3">NXTINT</h3>
+              <p class="text-slate-400 text-sm leading-6 mb-5">
+                Next-generation intelligence and OSINT analysis framework for evidence normalization,
+                semantic intelligence, investigation assistance, timelines and explainable decision modeling.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">FAISS</span><span class="tag">Computer Vision</span>
+              </div>
+              <a href="https://github.com/jonny14-bro/NXTINT" target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-cyan-300 transition">
+                View repository <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- OSINT -->
+          <article class="project-card glass rounded-2xl overflow-hidden reveal">
+            <div class="h-2 bg-gradient-to-r from-emerald-400 to-blue-400"></div>
+            <div class="p-7">
+              <div class="flex items-center justify-between mb-5">
+                <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-300"><i data-lucide="search-check"></i></div>
+                <span class="mono text-[10px] uppercase tracking-wider text-emerald-300">Multimodal</span>
+              </div>
+              <h3 class="text-2xl font-bold mb-3">OSINT Security Scanner</h3>
+              <p class="text-slate-400 text-sm leading-6 mb-5">
+                Multimodal OSINT prototype for image, video, text, audio and Git-repository analysis,
+                including metadata extraction, semantic similarity, sensitive-data detection and evidence indexing.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="tag">FastAPI</span><span class="tag">YOLOv8</span><span class="tag">OpenCV</span><span class="tag">FAISS</span>
+              </div>
+              <a href="https://github.com/jonny14-bro/OSINT-prototype" target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-emerald-300 transition">
+                View repository <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- Healthcare -->
+          <article class="project-card glass rounded-2xl overflow-hidden reveal">
+            <div class="h-2 bg-gradient-to-r from-rose-400 to-violet-400"></div>
+            <div class="p-7">
+              <div class="flex items-center justify-between mb-5">
+                <div class="p-3 rounded-xl bg-rose-500/10 text-rose-300"><i data-lucide="heart-pulse"></i></div>
+                <span class="mono text-[10px] uppercase tracking-wider text-rose-300">AI / Vision</span>
+              </div>
+              <h3 class="text-2xl font-bold mb-3">AI-Assisted Healthcare</h3>
+              <p class="text-slate-400 text-sm leading-6 mb-5">
+                Multimodal medical AI prototype combining medical-image analysis, patient interaction,
+                risk assessment and clinical-report generation workflows.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="tag">YOLO</span><span class="tag">DenseNet</span><span class="tag">Attention U-Net</span><span class="tag">AI Assistant</span>
+              </div>
+              <a href="https://github.com/jonny14-bro/AI_ASSISTED_HEALTHCARE_SYSTEM" target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-rose-300 transition">
+                View repository <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- WiFi -->
+          <article class="project-card glass rounded-2xl overflow-hidden reveal">
+            <div class="h-2 bg-gradient-to-r from-orange-400 to-red-400"></div>
+            <div class="p-7">
+              <div class="flex items-center justify-between mb-5">
+                <div class="p-3 rounded-xl bg-orange-500/10 text-orange-300"><i data-lucide="wifi"></i></div>
+                <span class="mono text-[10px] uppercase tracking-wider text-orange-300">Open Source</span>
+              </div>
+              <h3 class="text-2xl font-bold mb-3">Wi-Fi-Jammer</h3>
+              <p class="text-slate-400 text-sm leading-6 mb-5">
+                Wireless-security research repository and open-source contribution. Featured here as a
+                security-learning project rather than a production tool.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="tag">Linux</span><span class="tag">Wireless Security</span><span class="tag">Python</span>
+              </div>
+              <a href="https://github.com/jonny14-bro/Wi-Fi-Jammer" target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-orange-300 transition">
+                View repository <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- More -->
+          <article class="project-card glass rounded-2xl overflow-hidden reveal border-dashed">
+            <div class="p-7 h-full flex flex-col justify-between">
+              <div>
+                <div class="p-3 rounded-xl bg-white/5 text-slate-300 w-fit mb-5"><i data-lucide="layers-3"></i></div>
+                <h3 class="text-2xl font-bold mb-3">More on GitHub</h3>
+                <p class="text-slate-400 text-sm leading-6">
+                  Explore additional experiments, prototypes, utilities and earlier iterations of my work.
+                </p>
+              </div>
+              <a href="https://github.com/jonny14-bro?tab=repositories" target="_blank" rel="noopener"
+                 class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-violet-300 transition">
+                Explore all repositories <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CURRENT FOCUS -->
+    <section id="focus" class="py-28 bg-white/[.018] border-y border-white/5">
+      <div class="max-w-7xl mx-auto px-5 lg:px-8">
+        <div class="grid lg:grid-cols-[.8fr_1.2fr] gap-12 items-center">
+          <div class="reveal">
+            <p class="mono text-cyan-300 text-sm mb-3">04 / CURRENT FOCUS</p>
+            <h2 class="text-4xl sm:text-5xl font-bold">What I’m building next.</h2>
+          </div>
+
+          <div class="glass rounded-2xl p-7 sm:p-9 reveal">
+            <div class="flex flex-wrap items-center gap-3 mb-5">
+              <span class="px-3 py-1 rounded-full bg-violet-500/10 text-violet-300 mono text-xs">IN PROGRESS</span>
+              <span class="mono text-xs text-slate-500">CONTRA_v1</span>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-bold mb-4">Multi-Stage Adaptive Local LLM Orchestration</h3>
+            <p class="text-slate-400 leading-7 mb-6">
+              Continuing to explore local AI orchestration, intelligent task routing, memory, validation,
+              adaptive workflows and reliable execution — building on the engineering lessons from ACIE.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">Local LLMs</span>
+              <span class="tag">Orchestration</span>
+              <span class="tag">Task Planning</span>
+              <span class="tag">Validation</span>
+              <span class="tag">Automation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GITHUB -->
+    <section class="py-24">
+      <div class="max-w-7xl mx-auto px-5 lg:px-8">
+        <div class="glass rounded-2xl p-7 sm:p-10 reveal">
+          <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+            <div>
+              <p class="mono text-cyan-300 text-sm mb-3">05 / GITHUB</p>
+              <h2 class="text-3xl sm:text-4xl font-bold mb-3">Follow the build process.</h2>
+              <p class="text-slate-400 max-w-2xl">
+                My GitHub contains active prototypes, experiments, system architecture work and open-source contributions.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <a href="https://github.com/jonny14-bro" target="_blank" rel="noopener"
+                 class="px-5 py-3 rounded-xl bg-violet-600 hover:bg-violet-500 font-semibold transition">
+                View GitHub
+              </a>
+              <a href="https://github.com/jonny14-bro?tab=repositories" target="_blank" rel="noopener"
+                 class="px-5 py-3 rounded-xl border border-white/10 hover:bg-white/5 font-semibold transition">
+                Repositories
+              </a>
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-3 gap-4 mt-8">
+            <a href="https://github.com/jonny14-bro" target="_blank" rel="noopener" class="glass rounded-xl p-5 hover:border-violet-400/40 transition">
+              <p class="mono text-xs text-slate-500 mb-2">PROFILE</p>
+              <p class="font-semibold">github.com/jonny14-bro</p>
+            </a>
+            <a href="https://github.com/jonny14-bro?tab=repositories" target="_blank" rel="noopener" class="glass rounded-xl p-5 hover:border-cyan-400/40 transition">
+              <p class="mono text-xs text-slate-500 mb-2">PROJECTS</p>
+              <p class="font-semibold">Explore repositories →</p>
+            </a>
+            <a href="https://github.com/jonny14-bro?tab=stars" target="_blank" rel="noopener" class="glass rounded-xl p-5 hover:border-emerald-400/40 transition">
+              <p class="mono text-xs text-slate-500 mb-2">OPEN SOURCE</p>
+              <p class="font-semibold">View stars & activity →</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-28">
+      <div class="max-w-5xl mx-auto px-5 lg:px-8 text-center">
+        <div class="reveal">
+          <p class="mono text-cyan-300 text-sm mb-3">06 / CONTACT</p>
+          <h2 class="text-4xl sm:text-6xl font-black mb-6">Let’s build something <span class="gradient-text">useful.</span></h2>
+          <p class="text-slate-400 max-w-2xl mx-auto leading-7 mb-9">
+            Interested in AI/ML, cybersecurity, OSINT, intelligent systems or collaborative engineering?
+            I’d be happy to connect.
           </p>
 
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <a href="#projects" class="bg-primary hover:bg-primary/90 text-white rounded-full px-8 py-3 text-lg font-medium transition-colors">
-              View Projects
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="mailto:jatinsenapati2006@gmail.com"
+               class="inline-flex justify-center items-center gap-2 px-7 py-3.5 rounded-xl bg-violet-600 hover:bg-violet-500 font-semibold transition">
+              <i data-lucide="mail" class="w-4 h-4"></i> Email Me
             </a>
-            <a href="#contact" class="border border-white/20 text-white hover:bg-white/10 rounded-full px-8 py-3 text-lg font-medium transition-colors">
-              Contact Me
+            <a href="https://www.linkedin.com/in/jatin-kumar-senapati-48b7b636a/" target="_blank" rel="noopener"
+               class="inline-flex justify-center items-center gap-2 px-7 py-3.5 rounded-xl border border-white/10 hover:bg-white/5 font-semibold transition">
+              <i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn
             </a>
-          </div>
-
-          <div class="flex items-center justify-center gap-6 mb-12">
-            <a href="https://github.com/jonny14-bro" class="text-gray-400 hover:text-white hover:scale-110 transition-all p-2">
-              <i data-lucide="github"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/jatin-kumar-senapati-48b7b636a/" class="text-gray-400 hover:text-white hover:scale-110 transition-all p-2">
-              <i data-lucide="linkedin"></i>
-            </a>
-            <a href="https://www.instagram.com/_i_am_jatin.14_/?hl=en" class="text-gray-400 hover:text-white hover:scale-110 transition-all p-2">
-              <i data-lucide="instagram"></i>
-            </a>
-          </div>
-        </div>
-
-
-      </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-24 bg-background relative overflow-hidden">
-      <div class="container mx-auto px-6">
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-          <div class="reveal opacity-0 -translate-x-8 transition-all duration-1000 ease-out relative">
-            <div class="relative z-10 glass-card p-8 rounded-2xl border-l-4 border-primary">
-              <div class="flex flex-col sm:flex-row gap-6 items-start mb-6">
-                <img 
-                  src="assets/profile-pic.png" 
-                  alt="Profile Photo" 
-                  class="w-48 h-48 rounded-full object-cover border-5 border-primary/50 shadow-lg shrink-0"
-                />
-                <div>
-                  <h3 class="text-2xl font-bold text-white mb-2">Who I Am</h3>
-                  <p class="text-gray-400 leading-relaxed">
-                    Hi, I’m Jatin Kumar Senapati, a Computer Science & Engineering student specializing in Artificial Intelligence and Machine Learning at GITA Autonomous,BBSR , with a strong interest in cybersecurity, OSINT research, and web development.
-                  </p>
-                </div>
-              </div>
-              <p class="text-gray-400 leading-relaxed mb-6">
-                I enjoy building practical, real-world solutions—whether it’s designing modern, responsive websites or developing security-focused tools that analyze digital footprints and exposed data. My work focuses on clean design, efficient code, and security-aware development. 
-              </p>
-              <p class="text-gray-400 leading-relaxed mb-6">
-                I’ve worked on projects involving OSINT automation, secure data analysis, image/video metadata investigation, and custom web platforms, and I’m constantly learning new technologies to sharpen both my technical and problem-solving skills.
-              </p>
-              <p class="text-gray-400 leading-relaxed">
-                Creative Developer | AI & Cybersecurity Enthusiast
-Now i am in progress to learn , design and build secure, modern web solutions with a focus on AI, OSINT, and real-world problem solving.
-              </p>
-            </div>
-            <!-- Decorative elements -->
-            <div class="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl"></div>
-            <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-accent/20 rounded-full blur-3xl"></div>
-          </div>
-
-          <div class="reveal opacity-0 translate-x-8 transition-all duration-1000 ease-out delay-200">
-             <h2 class="text-4xl md:text-5xl font-bold text-white mb-8">
-              Transforming <span class="text-primary">ideas</span> into <br />
-              <span class="text-accent">digital reality</span>
-            </h2>
-            <div class="grid grid-cols-2 gap-6">
-              <div class="p-6 rounded-xl bg-white/5 border border-white/10 hover:border-primary/30 transition-colors">
-                <h4 class="text-3xl font-bold text-white mb-2">Hands-on work & projects</h4>
-                <p class="text-gray-400 text-sm">Years of Experience</p>
-              </div>
-              <div class="p-6 rounded-xl bg-white/5 border border-white/10 hover:border-primary/30 transition-colors">
-                <h4 class="text-3xl font-bold text-white mb-2">3</h4>
-                <p class="text-gray-400 text-sm">Projects Completed</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="py-24 bg-background/50">
-      <div class="container mx-auto px-6">
-        <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out text-center mb-16">
-          <h2 class="text-4xl font-bold text-white mb-4">My Skills</h2>
-          <p class="text-gray-400 max-w-xl mx-auto">
-            A constant learner, I'm always exploring new technologies to add to my toolkit.
-          </p>
-        </div>
+  </main>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <!-- Skill Items -->
-          <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 glass-card p-6 rounded-xl flex flex-col items-center justify-center gap-4 group hover:-translate-y-1 transition-transform cursor-default">
-            <div class="p-4 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors text-orange-500">
-              <i data-lucide="layout" size="32"></i>
-            </div>
-            <span class="font-medium text-gray-200">HTML5 & CSS3</span>
-          </div>
-          
-
-          
-          <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-200 glass-card p-6 rounded-xl flex flex-col items-center justify-center gap-4 group hover:-translate-y-1 transition-transform cursor-default">
-            <div class="p-4 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors text-yellow-400">
-              <i data-lucide="code-2" size="32"></i>
-            </div>
-            <span class="font-medium text-gray-200">Python</span>
-          </div>
-
-          <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-300 glass-card p-6 rounded-xl flex flex-col items-center justify-center gap-4 group hover:-translate-y-1 transition-transform cursor-default">
-            <div class="p-4 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors text-blue-400">
-              <i data-lucide="globe" size="32"></i>
-            </div>
-            <span class="font-medium text-gray-200">C language</span>
-          </div>
-
-          <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-400 glass-card p-6 rounded-xl flex flex-col items-center justify-center gap-4 group hover:-translate-y-1 transition-transform cursor-default">
-            <div class="p-4 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors text-cyan-400">
-              <i data-lucide="palette" size="32"></i>
-            </div>
-            <span class="font-medium text-gray-200">Tailwind</span>
-          </div>
-        </div>
+  <footer class="border-t border-white/10 py-8">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-slate-500">© 2026 Jatin Kumar Senapati. Built with HTML, Tailwind CSS & JavaScript.</p>
+      <div class="flex items-center gap-4">
+        <a href="https://github.com/jonny14-bro" target="_blank" rel="noopener" class="text-slate-500 hover:text-white transition"><i data-lucide="github" class="w-4 h-4"></i></a>
+        <a href="mailto:jatinsenapati2006@gmail.com" class="text-slate-500 hover:text-white transition"><i data-lucide="mail" class="w-4 h-4"></i></a>
       </div>
-    </section>
+    </div>
+  </footer>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-24 bg-background">
-      <div class="container mx-auto px-6">
-        <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out mb-16">
-          <h2 class="text-4xl font-bold text-white mb-4">Featured Projects</h2>
-          <p class="text-gray-400">Some of the best work I've done so far.</p>
-        </div>
+  <script>
+    lucide.createIcons();
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Project 1 -->
-          <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 group rounded-2xl overflow-hidden bg-card border border-white/10 hover:border-primary/50 transition-all duration-300">
-            <div class="relative h-48 overflow-hidden">
-              <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10"></div>
-              <img 
-                src="https://miro.medium.com/v2/resize:fit:1100/format:webp/0*Ys5-ON-ThuglXG8T" 
-                alt="OSINT Tool - prototype" 
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-            </div>
-            
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
-                OSINT Tool - prototype
-              </h3>
-              <p class="text-gray-400 text-sm mb-6 line-clamp-2">
-                OSINT (Open-Source Intelligence) tools are software and platforms used to extract and analyze publicly available information 
-              </p>
-              
-              <div class="flex items-center gap-4">
-                <a href="https://github.com/jonny14-bro/OSINT-prototype.git" class="flex-1 flex items-center justify-center gap-2 py-2 rounded-md border border-white/10 text-white text-sm hover:bg-white/5 transition-colors">
-                  <i data-lucide="github" class="w-4 h-4"></i> Code
-                </a>
-              </div>
-            </div>
-          </div>
+    // Small reusable tag style.
+    document.querySelectorAll('.tag').forEach(el => {
+      el.className = 'tag mono text-[10px] px-2.5 py-1.5 rounded-md bg-white/5 border border-white/10 text-slate-400';
+    });
 
+    // Navbar
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('nav-scrolled', window.scrollY > 30);
+    });
 
-          <!-- Project 2 -->
-          <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 group rounded-2xl overflow-hidden bg-card border border-white/10 hover:border-primary/50 transition-all duration-300">
-            <div class="relative h-48 overflow-hidden">
-              <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10"></div>
-              <img 
-                src="https://uk.store.tapo.com/cdn/shop/articles/How_to_prevent_WiFi_jamming_c9265114-afb4-495d-a217-72626c80dc83.jpg?v=1756910680&width=1400" 
-                alt="OSINT Tool" 
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-            </div>
-            
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
-                WIFI JAMMER
-              </h3>
-              <p class="text-gray-400 text-sm mb-6 line-clamp-2">
-                A WiFi jammer is an illegal device that intentionally transmits powerful radio frequency signals to disrupt wireless communication, making it impossible for Wi-Fi enabled devices to connect to a network.
-              </p>
-              
-              <div class="flex items-center gap-4">
-                <a href="https://github.com/jonny14-bro/Wi-Fi-Jammer" class="flex-1 flex items-center justify-center gap-2 py-2 rounded-md border border-white/10 text-white text-sm hover:bg-white/5 transition-colors">
-                  <i data-lucide="github" class="w-4 h-4"></i> Code
-                </a>
-              </div>            
-            </div>
-          </div>
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
 
-
-          <!-- project 3-->
-          <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 group rounded-2xl overflow-hidden bg-card border border-white/10 hover:border-primary/50 transition-all duration-300">
-            <div class="relative h-48 overflow-hidden">
-              <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10"></div>
-              <img 
-                src="https://gloriumtech.com/wp-content/uploads/2021/02/How-AI-Reshapes-The-Healthcare-System-In-The-US.png" 
-                alt="OSINT Tool - prototype" 
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-            </div>
-            
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
-                AI_ASSISTED_HEALTHCARE
-                SYSTEM
-              </h3>
-              <p class="text-gray-400 text-sm mb-6 line-clamp-2">
-                AI Assisted Healthcare System is a multi-modal medical AI platform designed to assist healthcare professionals and patients through advanced deep learning models and intelligent conversational workflows.
-              </p>
-              
-              <div class="flex items-center gap-4">
-                <a href="https://github.com/jonny14-bro/AI_ASSISTED_HEALTHCARE_SYSTEM" class="flex-1 flex items-center justify-center gap-2 py-2 rounded-md border border-white/10 text-white text-sm hover:bg-white/5 transition-colors">
-                  <i data-lucide="github" class="w-4 h-4"></i> Code
-                </a>
-              </div>
-            </div>
-          </div>          
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 bg-background/50 relative overflow-hidden">
-      <div class="container mx-auto px-6">
-        <div class="reveal opacity-0 translate-y-8 transition-all duration-1000 ease-out text-center mb-16">
-          <h2 class="text-4xl font-bold text-white">Let's Work Together</h2>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-          <!-- Contact Info -->
-          
-          <div class="reveal opacity-0 -translate-x-8 transition-all duration-1000 ease-out space-y-8">
-            <p class="text-gray-400 text-lg">
-              Have a project in mind or just want to say hi? Feel free to send me a message.
-            </p>
-            <div class="flex items-center gap-4">
-              <div class="p-3 rounded-full bg-primary/10 text-primary">
-                <i data-lucide="mail" class="w-6 h-6"></i>
-              </div>
-              <div>
-                <h4 class="font-bold text-white">Email</h4>
-                <p class="text-gray-400">jatinsenapati2006@gmail.com</p>
-              </div>
-            </div>
-          </div>
-          <div class="reveal opacity-0 -translate-x-8 transition-all duration-1000 ease-out space-y-8">
-            <p class="text-gray-400 text-lg">
-              Any creative thinking can be turned into an innovation.
-            </p>
-            <div class="flex items-center gap-4">
-              <div class="p-3 rounded-full bg-primary/10 text-primary">
-                <i data-lucide="mail" class="w-6 h-6"></i>
-              </div>
-              <div>
-                <h4 class="font-bold text-white">Contact</h4>
-                <p class="text-gray-400">For any queries contact on the email !</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Scripts -->
-    <script>
-      // Initialize Lucide Icons
-      lucide.createIcons();
-
-      // Navbar Scroll Effect
-      const navbar = document.getElementById('navbar');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          navbar.classList.add('bg-background/80', 'backdrop-blur-md', 'border-b', 'border-white/10', 'py-4');
-          navbar.classList.remove('py-6');
-        } else {
-          navbar.classList.remove('bg-background/80', 'backdrop-blur-md', 'border-b', 'border-white/10', 'py-4');
-          navbar.classList.add('py-6');
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          obs.unobserve(entry.target);
         }
       });
+    }, { threshold: 0.12 });
 
-      // Mobile Menu Toggle
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const mobileLinks = document.querySelectorAll('.mobile-link');
-
-      function toggleMenu() {
-        const isHidden = mobileMenu.classList.contains('hidden');
-        const menuIcon = mobileMenuBtn.querySelector('.lucide-menu');
-        const closeIcon = mobileMenuBtn.querySelector('.lucide-x');
-
-        if (isHidden) {
-          mobileMenu.classList.remove('hidden');
-          if (menuIcon) menuIcon.classList.add('hidden');
-          if (closeIcon) closeIcon.classList.remove('hidden');
-        } else {
-          mobileMenu.classList.add('hidden');
-          if (menuIcon) menuIcon.classList.remove('hidden');
-          if (closeIcon) closeIcon.classList.add('hidden');
-        }
-      }
-
-      mobileMenuBtn.addEventListener('click', toggleMenu);
-
-      // Close mobile menu when clicking a link
-      mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.add('hidden');
-          const menuIcon = mobileMenuBtn.querySelector('.lucide-menu');
-          const closeIcon = mobileMenuBtn.querySelector('.lucide-x');
-          if (menuIcon) menuIcon.classList.remove('hidden');
-          if (closeIcon) closeIcon.classList.add('hidden');
-        });
-      });
-
-      // Scroll Reveal Animation
-      const revealElements = document.querySelectorAll('.reveal');
-      const revealCallback = (entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.remove('opacity-0', 'translate-y-8', '-translate-x-8', 'translate-x-8');
-            observer.unobserve(entry.target);
-          }
-        });
-      };
-      const revealObserver = new IntersectionObserver(revealCallback, {
-        threshold: 0.15,
-        rootMargin: "0px 0px -50px 0px"
-      });
-      revealElements.forEach(el => revealObserver.observe(el));
-
-      // Initial Reveal
-      window.addEventListener('load', () => {
-        const heroContent = document.querySelector('#home .reveal');
-        if (heroContent) {
-          heroContent.classList.remove('opacity-0', 'translate-y-8');
-        }
-      });
-
-      // Contact Form Demo
-      const contactForm = document.getElementById('contact-form');
-      if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const name = document.getElementById('name').value;
-          const submitBtn = contactForm.querySelector('button[type="submit"]');
-          const originalText = submitBtn.textContent;
-          
-          submitBtn.textContent = 'Sending...';
-          submitBtn.disabled = true;
-
-          setTimeout(() => {
-            alert(`Thanks ${name}! Message sent successfully (Demo only).`);
-            contactForm.reset();
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-          }, 1500);
-        });
-      }
-    </script>
-  </body>
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
 </html>
